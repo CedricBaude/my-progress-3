@@ -16,6 +16,10 @@ const AdminRouter = () => {
                     <Route path="edit" element={<UEdit />} />
                     <Route path="add" element={<Add />} />
                 </Route>
+                <Route path="cocktail">
+                    <Route path="index" element={<Cocktail />} />
+                    <Route path="edit" element={<CEdit />} />
+                </Route>
                 <Route path="*" element={<Error />} />
             </Route>
         </Routes>
