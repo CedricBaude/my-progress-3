@@ -8,6 +8,10 @@ form {
     margin-bottom: 15px;
 }
 
+.group input {
+    width: 172px;
+}
+
 label {
     display: block;
 }
