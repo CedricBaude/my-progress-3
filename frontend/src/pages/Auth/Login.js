@@ -1,13 +1,17 @@
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import "./auth.css";
 
+import { accountService } from '../../_services/account.service';
+
 const Login = () => {
+    let navigate = useNavigate();
     // const [login, setLogin] = useState('');
     // const [password, setPassword] = useState('');
     const [credentials, setCredentials] = useState({
-        email: 'myrl51@hotmail.com',
-        password: ''
+        email: 'test@test.fr',
+        password: 'test'
     })
 
     const onChange = (e) => {
@@ -20,8 +24,12 @@ const Login = () => {
     const onSubmit = (e) => {
         e.preventDefault();
         console.log(credentials);
-        axios.post(' https://api.fake-rest.refine.dev/users/1', credentials)
-            .then(res => console.log(res))
+        axios.post('http://localhost:5000/login', credentials)
+            .then(res => {
+                console.log(res)
+                accountService.saveToken(res.data.accessToken)
+                navigate('/admin')
+            })
             .catch(error => console.log(error))
     }
 
