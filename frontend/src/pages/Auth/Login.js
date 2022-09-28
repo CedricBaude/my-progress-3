@@ -9,8 +9,8 @@ const Login = () => {
     // const [login, setLogin] = useState('');
     // const [password, setPassword] = useState('');
     const [credentials, setCredentials] = useState({
-        email: 'test@test.fr',
-        password: 'test'
+        email: '',
+        password: ''
     })
 
     const onChange = (e) => {
