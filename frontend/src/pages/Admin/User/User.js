@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { userService } from '../../../_services/user.service';
@@ -6,15 +6,20 @@ import { userService } from '../../../_services/user.service';
 const User = () => {
     let navigate = useNavigate();
     const [users, setUsers] = useState([])
+    const flag = useRef(false)
 
     useEffect(() => {
-        userService.getAllUsers()
-            .then(res => {
-                console.log(res.data)
-                setUsers(res.data)
-            })
 
-            .catch(err => console.log(err))
+        if (flag.current === false) {
+            userService.getAllUsers()
+                .then(res => {
+                    console.log(res.data)
+                    setUsers(res.data)
+                })
+                .catch(err => console.log(err))
+        }
+        return () => flag.current = true
+
     }, [])
 
     // const marcel = (userId) => {
@@ -30,7 +35,6 @@ const User = () => {
                     <th>#</th>
                     <th>Nom</th>
                     <th>Email</th>
-                    <th>Created</th>
                 </thead>
                 <tbody>
                     {
@@ -39,7 +43,6 @@ const User = () => {
                                 <td>{user.id}</td>
                                 <td>{user.name}</td>
                                 <td>{user.email}</td>
-                                <td>{user.createdAt}</td>
                             </tr>
                         ))
                     }
